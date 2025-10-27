@@ -2,7 +2,7 @@ edition: 3.0.0
 name: fortune-teller
 access: default
 
-services:
+resources:
   fortune-teller:
     component: devsapp/fc
     props:
@@ -10,7 +10,7 @@ services:
       service:
         name: fortune-teller-service
       function:
-        name: web-function  # ← 关键：必须有这个
+        name: web-function
         runtime: nodejs18
         codeUri: ./
         handler: .next/server/index.handler
