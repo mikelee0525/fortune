@@ -13,9 +13,11 @@ resources:
         name: web-function
         runtime: nodejs18
         code: ./
-        handler: .next/server/index.handler
+        handler: index.handler
         memorySize: 1024
         timeout: 30
+        environmentVariables:
+          NODE_ENV: production
       triggers:
         - type: http
           name: http

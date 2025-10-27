@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Vercel 配置 - 移除静态导出相关设置
+  // 阿里云函数计算配置
+  output: 'standalone',
+  outputFileTracingRoot: process.cwd(),
 }
 
 export default nextConfig
