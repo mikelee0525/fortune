@@ -1,0 +1,26 @@
+edition: 3.0.0
+name: fortune-teller
+access: default
+
+services:
+  web:
+    component: fc
+    props:
+      region: cn-hangzhou
+      service:
+        name: fortune-teller
+      function:
+        name: nextjs-app
+        runtime: nodejs18
+        codeUri: ./
+        handler: .next/server/index.handler
+        memorySize: 1024
+        timeout: 30
+        environmentVariables:
+          NODE_ENV: production
+      triggers:
+        - name: http
+          type: http
+          config:
+            authType: anonymous
+            methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']
