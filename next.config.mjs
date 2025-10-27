@@ -1,13 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // 启用静态导出
-  trailingSlash: true,
-  images: {
-    unoptimized: true  // 静态导出时需要
-  },
-  // GitHub Pages configuration
-  basePath: process.env.NODE_ENV === 'production' ? '/fortune' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/fortune' : ''
+  // Vercel 配置 - 移除静态导出相关设置
 }
 
 export default nextConfig
