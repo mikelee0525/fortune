@@ -4,7 +4,7 @@ access: default
 
 resources:
   fortune-teller:
-    component: devsapp/fc
+    component: fc3
     props:
       region: cn-hangzhou
       service:
@@ -12,13 +12,13 @@ resources:
       function:
         name: web-function
         runtime: nodejs18
-        codeUri: ./
+        code: ./
         handler: .next/server/index.handler
         memorySize: 1024
         timeout: 30
       triggers:
-        - name: http
-          type: http
-          config:
+        - type: http
+          name: http
+          properties:
             authType: anonymous
             methods: ['GET', 'POST']
