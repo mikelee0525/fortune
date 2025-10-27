@@ -2,32 +2,23 @@ edition: 3.0.0
 name: fortune-teller
 access: default
 
-resources:
-  nextjs-app:
-    component: fc3
+services:
+  fortune-teller:
+    component: devsapp/fc
     props:
       region: cn-hangzhou
       service:
         name: fortune-teller-service
       function:
-        name: nextjs-function
-        description: 'Next.js Fortune Teller Application'
+        name: web-function  # ← 关键：必须有这个
         runtime: nodejs18
-        code: ./
+        codeUri: ./
         handler: .next/server/index.handler
         memorySize: 1024
-        timeout: 60
-        environmentVariables:
-          NODE_ENV: production
+        timeout: 30
       triggers:
-        - type: http
-          name: http-trigger
-          properties:
-            methods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - HEAD
-              - OPTIONS
+        - name: http
+          type: http
+          config:
             authType: anonymous
+            methods: ['GET', 'POST']
