@@ -10,4 +10,4 @@ const nextConfig = {
   assetPrefix: process.env.NODE_ENV === 'production' ? '/fortune-teller/' : ''
 }
 
-module.exports = nextConfig
+export default nextConfig
