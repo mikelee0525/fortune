@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import SimpleLogo from '../components/SimpleLogo';
 
 export default function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -65,8 +66,8 @@ export default function ChatPage() {
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-3">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
-              Teller
+            <Link href="/" className="flex items-center">
+              <SimpleLogo />
             </Link>
             <nav className="flex space-x-1">
               <Link

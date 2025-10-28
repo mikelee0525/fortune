@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import SimpleLogo from '../components/SimpleLogo';
 
 export default function PaipanPage() {
   const [paipanList, setPaipanList] = useState([]);
@@ -132,8 +133,8 @@ export default function PaipanPage() {
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="text-2xl font-bold text-gray-900 dark:text-white">
-              Teller
+            <Link href="/" className="flex items-center">
+              <SimpleLogo />
             </Link>
             <nav className="flex space-x-1">
               <Link

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆 -->
+  <circle cx="16" cy="16" r="16" fill="#2563eb"/>
+  
+  <!-- 太极图案 -->
+  <circle cx="16" cy="16" r="12" fill="none" stroke="white" stroke-width="1"/>
+  <path d="M16 5 A11 11 0 0 1 16 27 A5.5 5.5 0 0 1 16 16 A5.5 5.5 0 0 0 16 5" fill="white"/>
+  <circle cx="16" cy="10.5" r="1.5" fill="#2563eb"/>
+  <circle cx="16" cy="21.5" r="1.5" fill="white"/>
+  
+  <!-- 简化的八卦标记 -->
+  <g stroke="white" stroke-width="0.8" fill="none">
+    <line x1="16" y1="3" x2="16" y2="5"/>
+    <line x1="16" y1="27" x2="16" y2="29"/>
+    <line x1="29" y1="16" x2="27" y2="16"/>
+    <line x1="3" y1="16" x2="5" y2="16"/>
+  </g>
+</svg>

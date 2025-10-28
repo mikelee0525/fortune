@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Teller",
-  description: "排盘、记录、课程管理平台",
+  title: "命理坊",
+  description: "专业的四柱八字排盘与命理分析平台",
 };
 
 export default function RootLayout({ children }) {
