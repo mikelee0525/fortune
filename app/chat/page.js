@@ -113,9 +113,9 @@ export default function ChatPage() {
                     您可以从<Link href="/paipan" className="underline hover:text-blue-600">排盘页面</Link>复制八字信息，然后在这里提问：
                   </p>
                   <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-1 ml-4">
-                    <li>• 点击排盘详情中的"复制八字"按钮</li>
+                    <li>• 点击排盘详情中的&quot;复制八字&quot;按钮</li>
                     <li>• 粘贴到下方输入框</li>
-                    <li>• 添加您的问题，如"分析格局"、"看财运"等</li>
+                    <li>• 添加您的问题，如&quot;分析格局&quot;、&quot;看财运&quot;等</li>
                   </ul>
                 </div>
 
@@ -126,12 +126,12 @@ export default function ChatPage() {
                       八字命理分析
                     </h3>
                     <div className="text-green-700 dark:text-green-300 text-sm space-y-1">
-                      <p>• "我是什么格局？身强还是身弱？"</p>
-                      <p>• "我的用神是什么？要补什么五行？"</p>
-                      <p>• "适合从事什么行业？"</p>
-                      <p>• "我的财运如何？适合投资吗？"</p>
-                      <p>• "感情运势怎么样？何时遇正缘？"</p>
-                      <p>• "健康方面要注意什么？"</p>
+                      <p>• &quot;我是什么格局？身强还是身弱？&quot;</p>
+                      <p>• &quot;我的用神是什么？要补什么五行？&quot;</p>
+                      <p>• &quot;适合从事什么行业？&quot;</p>
+                      <p>• &quot;我的财运如何？适合投资吗？&quot;</p>
+                      <p>• &quot;感情运势怎么样？何时遇正缘？&quot;</p>
+                      <p>• &quot;健康方面要注意什么？&quot;</p>
                     </div>
                   </div>
 
@@ -141,12 +141,12 @@ export default function ChatPage() {
                       梅花易数占卜
                     </h3>
                     <div className="text-purple-700 dark:text-purple-300 text-sm space-y-1">
-                      <p>• "这次面试能成功吗？"</p>
-                      <p>• "他/她喜欢我吗？我们能在一起吗？"</p>
-                      <p>• "这个项目能赚钱吗？"</p>
-                      <p>• "我的病能治好吗？"</p>
-                      <p>• "这次考试能过吗？"</p>
-                      <p>• "丢失的东西能找到吗？"</p>
+                      <p>• &quot;这次面试能成功吗？&quot;</p>
+                      <p>• &quot;他/她喜欢我吗？我们能在一起吗？&quot;</p>
+                      <p>• &quot;这个项目能赚钱吗？&quot;</p>
+                      <p>• &quot;我的病能治好吗？&quot;</p>
+                      <p>• &quot;这次考试能过吗？&quot;</p>
+                      <p>• &quot;丢失的东西能找到吗？&quot;</p>
                     </div>
                   </div>
                 </div>
