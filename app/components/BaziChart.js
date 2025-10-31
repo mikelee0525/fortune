@@ -68,18 +68,260 @@ export default function BaziChart({ baziData, personInfo, lunarDate }) {
 
       {/* 四柱八字表格 */}
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 border-b border-gray-200 dark:border-gray-600">
+        <div className="bg-gray-50 dark:bg-gray-700 px-2 sm:px-4 py-3 border-b border-gray-200 dark:border-gray-600">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             四柱八字
           </h3>
         </div>
         
-        <div className="overflow-x-auto">
+        {/* 手机端：卡片布局 */}
+        <div className="block sm:hidden">
+          {/* 柱位标题行 */}
+          <div className="grid gap-1 p-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600" style={{gridTemplateColumns: 'auto 1fr 1fr 1fr 1fr'}}>
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 flex flex-col items-center justify-center leading-tight">
+              <div>柱</div>
+              <div>位</div>
+            </div>
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center flex flex-col items-center justify-center leading-tight">
+              <div>年</div>
+              <div>柱</div>
+            </div>
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center flex flex-col items-center justify-center leading-tight">
+              <div>月</div>
+              <div>柱</div>
+            </div>
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center flex flex-col items-center justify-center leading-tight">
+              <div>日</div>
+              <div>柱</div>
+            </div>
+            <div className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center flex flex-col items-center justify-center leading-tight">
+              <div>时</div>
+              <div>柱</div>
+            </div>
+          </div>
+          
+          <div className="grid gap-1 p-2" style={{gridTemplateColumns: 'auto 1fr 1fr 1fr 1fr'}}>
+            {/* 柱位标签列 */}
+            <div className="space-y-2 text-xs text-gray-600 dark:text-gray-400">
+              <div className="h-6 flex flex-col items-center justify-center leading-tight">
+                <div>十</div>
+                <div>神</div>
+              </div>
+              <div className="h-8 flex flex-col items-center justify-center leading-tight">
+                <div>天</div>
+                <div>干</div>
+              </div>
+              <div className="h-8 flex flex-col items-center justify-center leading-tight">
+                <div>地</div>
+                <div>支</div>
+              </div>
+              <div className="h-16 flex flex-col items-center justify-start pt-1 leading-tight">
+                <div>藏</div>
+                <div>干</div>
+              </div>
+              <div className="h-8 flex flex-col items-center justify-center leading-tight">
+                <div>纳</div>
+                <div>音</div>
+              </div>
+              <div className="h-12 flex flex-col items-center justify-start pt-1 leading-tight">
+                <div>神</div>
+                <div>煞</div>
+              </div>
+            </div>
+            
+            {/* 年柱 */}
+            <div className="text-center space-y-2">
+              <div className="h-6 flex items-center justify-center text-xs text-purple-600 dark:text-purple-400 font-medium">
+                {shiShen.year}
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.year.gan))}`}>
+                  {sizhu.year.gan}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.year.gan))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.year.gan)}
+                </div>
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.year.zhi))}`}>
+                  {sizhu.year.zhi}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.year.zhi))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.year.zhi)}
+                </div>
+              </div>
+              <div className="h-16 text-xs space-y-0.5">
+                {cangGan[0]?.map((gan, index) => (
+                  <div key={index} className="flex justify-center">
+                    <span className={`${getWuXingColor(getGanZhiWuXing(gan))}`}>
+                      {gan}({cangGanShiShen[0][index]})
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="h-8 flex items-center justify-center text-xs text-orange-600 dark:text-orange-400">
+                {baziData.nayin?.year || '未知'}
+              </div>
+              <div className="h-12 text-xs text-purple-600 dark:text-purple-400 space-y-0.5 overflow-hidden">
+                {baziData.shensha?.year && baziData.shensha.year.length > 0 ? (
+                  baziData.shensha.year.slice(0, 2).map((sha, index) => (
+                    <div key={index} className="flex justify-center">
+                      {sha}
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex justify-center text-gray-400">-</div>
+                )}
+              </div>
+            </div>
+
+            {/* 月柱 */}
+            <div className="text-center space-y-2">
+              <div className="h-6 flex items-center justify-center text-xs text-purple-600 dark:text-purple-400 font-medium">
+                {shiShen.month}
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.month.gan))}`}>
+                  {sizhu.month.gan}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.month.gan))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.month.gan)}
+                </div>
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.month.zhi))}`}>
+                  {sizhu.month.zhi}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.month.zhi))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.month.zhi)}
+                </div>
+              </div>
+              <div className="h-16 text-xs space-y-0.5">
+                {cangGan[1]?.map((gan, index) => (
+                  <div key={index} className="flex justify-center">
+                    <span className={`${getWuXingColor(getGanZhiWuXing(gan))}`}>
+                      {gan}({cangGanShiShen[1][index]})
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="h-8 flex items-center justify-center text-xs text-orange-600 dark:text-orange-400">
+                {baziData.nayin?.month || '未知'}
+              </div>
+              <div className="h-12 text-xs text-purple-600 dark:text-purple-400 space-y-0.5 overflow-hidden">
+                {baziData.shensha?.month && baziData.shensha.month.length > 0 ? (
+                  baziData.shensha.month.slice(0, 2).map((sha, index) => (
+                    <div key={index} className="flex justify-center">
+                      {sha}
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex justify-center text-gray-400">-</div>
+                )}
+              </div>
+            </div>
+
+            {/* 日柱 */}
+            <div className="text-center space-y-2">
+              <div className="h-6 flex items-center justify-center text-xs text-purple-600 dark:text-purple-400 font-medium">
+                {personInfo?.gender === '女' ? '元女' : '元男'}
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.day.gan))}`}>
+                  {sizhu.day.gan}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.day.gan))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.day.gan)}
+                </div>
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.day.zhi))}`}>
+                  {sizhu.day.zhi}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.day.zhi))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.day.zhi)}
+                </div>
+              </div>
+              <div className="h-16 text-xs space-y-0.5">
+                {cangGan[2]?.map((gan, index) => (
+                  <div key={index} className="flex justify-center">
+                    <span className={`${getWuXingColor(getGanZhiWuXing(gan))}`}>
+                      {gan}({cangGanShiShen[2][index]})
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="h-8 flex items-center justify-center text-xs text-orange-600 dark:text-orange-400">
+                {baziData.nayin?.day || '未知'}
+              </div>
+              <div className="h-12 text-xs text-purple-600 dark:text-purple-400 space-y-0.5 overflow-hidden">
+                {baziData.shensha?.day && baziData.shensha.day.length > 0 ? (
+                  baziData.shensha.day.slice(0, 2).map((sha, index) => (
+                    <div key={index} className="flex justify-center">
+                      {sha}
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex justify-center text-gray-400">-</div>
+                )}
+              </div>
+            </div>
+
+            {/* 时柱 */}
+            <div className="text-center space-y-2">
+              <div className="h-6 flex items-center justify-center text-xs text-purple-600 dark:text-purple-400 font-medium">
+                {shiShen.hour}
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.hour.gan))}`}>
+                  {sizhu.hour.gan}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.hour.gan))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.hour.gan)}
+                </div>
+              </div>
+              <div className="h-8 flex items-center justify-center relative">
+                <div className={`text-lg font-bold ${getWuXingColor(getGanZhiWuXing(sizhu.hour.zhi))}`}>
+                  {sizhu.hour.zhi}
+                </div>
+                <div className={`absolute bottom-1 right-1 text-xs px-0.5 py-0 rounded text-xs scale-75 ${getWuXingColor(getGanZhiWuXing(sizhu.hour.zhi))} bg-gray-100 dark:bg-gray-700`}>
+                  {getGanZhiWuXing(sizhu.hour.zhi)}
+                </div>
+              </div>
+              <div className="h-16 text-xs space-y-0.5">
+                {cangGan[3]?.map((gan, index) => (
+                  <div key={index} className="flex justify-center">
+                    <span className={`${getWuXingColor(getGanZhiWuXing(gan))}`}>
+                      {gan}({cangGanShiShen[3][index]})
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="h-8 flex items-center justify-center text-xs text-orange-600 dark:text-orange-400">
+                {baziData.nayin?.hour || '未知'}
+              </div>
+              <div className="h-12 text-xs text-purple-600 dark:text-purple-400 space-y-0.5 overflow-hidden">
+                {baziData.shensha?.hour && baziData.shensha.hour.length > 0 ? (
+                  baziData.shensha.hour.slice(0, 2).map((sha, index) => (
+                    <div key={index} className="flex justify-center">
+                      {sha}
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex justify-center text-gray-400">-</div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 桌面端：表格布局 */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-medium text-gray-700 dark:text-gray-300">
-                  柱位
+                  柱位：
                 </th>
                 <th className="px-4 py-3 text-center text-sm font-medium text-gray-700 dark:text-gray-300">
                   年柱
@@ -108,7 +350,7 @@ export default function BaziChart({ baziData, personInfo, lunarDate }) {
                   {shiShen.month}
                 </td>
                 <td className="px-4 py-2 text-center text-sm text-purple-600 dark:text-purple-400 font-medium bg-red-50 dark:bg-red-900/20">
-                  {shiShen.day}
+                  {personInfo?.gender === '女' ? '元女' : '元男'}
                 </td>
                 <td className="px-4 py-2 text-center text-sm text-purple-600 dark:text-purple-400 font-medium">
                   {shiShen.hour}

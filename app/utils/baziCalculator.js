@@ -270,34 +270,34 @@ const SHENSHA = {
 
 // 月份对应的节气起始日期（更准确的版本）
 const JIEQI_DATES = {
-  1: { name: '立春', day: 4 },   // 立春，寅月开始
-  2: { name: '惊蛰', day: 6 },   // 惊蛰，卯月开始  
-  3: { name: '清明', day: 5 },   // 清明，辰月开始
-  4: { name: '立夏', day: 5 },   // 立夏，巳月开始
-  5: { name: '芒种', day: 6 },   // 芒种，午月开始
-  6: { name: '小暑', day: 7 },   // 小暑，未月开始
-  7: { name: '立秋', day: 8 },   // 立秋，申月开始
-  8: { name: '白露', day: 8 },   // 白露，酉月开始
-  9: { name: '寒露', day: 8 },   // 寒露，戌月开始
-  10: { name: '立冬', day: 8 },  // 立冬，亥月开始
-  11: { name: '大雪', day: 7 },  // 大雪，子月开始
-  12: { name: '小寒', day: 6 }   // 小寒，丑月开始
+  1: { name: '小寒', day: 6 },   // 小寒，丑月开始
+  2: { name: '立春', day: 4 },   // 立春，寅月开始
+  3: { name: '惊蛰', day: 6 },   // 惊蛰，卯月开始  
+  4: { name: '清明', day: 5 },   // 清明，辰月开始
+  5: { name: '立夏', day: 5 },   // 立夏，巳月开始
+  6: { name: '芒种', day: 6 },   // 芒种，午月开始
+  7: { name: '小暑', day: 7 },   // 小暑，未月开始
+  8: { name: '立秋', day: 8 },   // 立秋，申月开始
+  9: { name: '白露', day: 8 },   // 白露，酉月开始
+  10: { name: '寒露', day: 8 },  // 寒露，戌月开始
+  11: { name: '立冬', day: 8 },  // 立冬，亥月开始
+  12: { name: '大雪', day: 7 }   // 大雪，子月开始
 };
 
-// 时辰对应（根据准确八字调整）
+// 时辰对应（传统时辰划分）
 const SHICHEN = {
-  23: '子', 0: '子', 1: '子',    // 23-2点为子时（根据准确八字）
-  2: '丑', 3: '丑',             // 2-4点为丑时  
-  4: '寅', 5: '寅',             // 4-6点为寅时
-  6: '卯', 7: '卯',             // 6-8点为卯时
-  8: '辰', 9: '辰',             // 8-10点为辰时
-  10: '巳', 11: '巳',           // 10-12点为巳时
-  12: '午', 13: '午',           // 12-14点为午时
-  14: '未', 15: '未',           // 14-16点为未时
-  16: '申', 17: '申',           // 16-18点为申时
-  18: '酉', 19: '酉',           // 18-20点为酉时
-  20: '戌', 21: '戌',           // 20-22点为戌时
-  22: '亥'                      // 22-23点为亥时
+  23: '子', 0: '子',            // 23-1点为子时
+  1: '丑', 2: '丑',             // 1-3点为丑时  
+  3: '寅', 4: '寅',             // 3-5点为寅时
+  5: '卯', 6: '卯',             // 5-7点为卯时
+  7: '辰', 8: '辰',             // 7-9点为辰时
+  9: '巳', 10: '巳',            // 9-11点为巳时
+  11: '午', 12: '午',           // 11-13点为午时
+  13: '未', 14: '未',           // 13-15点为未时
+  15: '申', 16: '申',           // 15-17点为申时
+  17: '酉', 18: '酉',           // 17-19点为酉时
+  19: '戌', 20: '戌',           // 19-21点为戌时
+  21: '亥', 22: '亥'            // 21-23点为亥时
 };
 
 // 获取时辰地支
@@ -306,27 +306,73 @@ function getHourZhi(hour) {
 }
 
 // 立春日期表（简化版）
+// 立春日期表（精确到小时）
 const LICHUN_DATES = {
-  1978: { month: 2, day: 4 },
-  1989: { month: 2, day: 4 },
-  2017: { month: 2, day: 3 },
-  // 可以根据需要添加更多年份
+  1990: { month: 2, day: 4, hour: 10 },
+  1991: { month: 2, day: 4, hour: 16 },
+  1992: { month: 2, day: 4, hour: 22 },
+  1993: { month: 2, day: 4, hour: 4 },
+  1994: { month: 2, day: 4, hour: 10 },
+  1995: { month: 2, day: 4, hour: 15 },
+  1996: { month: 2, day: 4, hour: 21 },
+  1997: { month: 2, day: 4, hour: 3 },
+  1998: { month: 2, day: 4, hour: 9 },
+  1999: { month: 2, day: 4, hour: 14 },
+  2000: { month: 2, day: 4, hour: 20 },
+  2001: { month: 2, day: 4, hour: 2 },
+  2002: { month: 2, day: 4, hour: 8 },
+  2003: { month: 2, day: 4, hour: 13 },
+  2004: { month: 2, day: 4, hour: 19 },
+  2005: { month: 2, day: 4, hour: 1 },
+  2006: { month: 2, day: 4, hour: 7 },
+  2007: { month: 2, day: 4, hour: 12 },
+  2008: { month: 2, day: 4, hour: 18 },
+  2009: { month: 2, day: 4, hour: 0 },
+  2010: { month: 2, day: 4, hour: 6 },
+  2011: { month: 2, day: 4, hour: 12 },
+  2012: { month: 2, day: 4, hour: 18 },
+  2013: { month: 2, day: 4, hour: 0 },
+  2014: { month: 2, day: 4, hour: 6 },
+  2015: { month: 2, day: 4, hour: 11 },
+  2016: { month: 2, day: 4, hour: 17 },
+  2017: { month: 2, day: 3, hour: 23 },
+  2018: { month: 2, day: 4, hour: 5 },
+  2019: { month: 2, day: 4, hour: 11 },
+  2020: { month: 2, day: 4, hour: 17 },
+  2021: { month: 2, day: 3, hour: 22 },
+  2022: { month: 2, day: 4, hour: 4 },
+  2023: { month: 2, day: 4, hour: 10 },
+  2024: { month: 2, day: 4, hour: 16 },
+  2025: { month: 2, day: 3, hour: 22 },
+  2026: { month: 2, day: 4, hour: 4 },
+  2027: { month: 2, day: 4, hour: 10 },
+  2028: { month: 2, day: 4, hour: 15 },
+  2029: { month: 2, day: 3, hour: 21 },
+  2030: { month: 2, day: 4, hour: 3 },
+  2031: { month: 2, day: 4, hour: 9 },
+  2032: { month: 2, day: 4, hour: 14 },
+  2033: { month: 2, day: 3, hour: 20 },
+  2034: { month: 2, day: 4, hour: 2 },
+  2035: { month: 2, day: 4, hour: 8 }
 };
 
 // 计算年柱（以立春为界）
-function getYearGanZhi(year, month, day) {
+function getYearGanZhi(year, month, day, hour = 12) {
   let actualYear = year;
 
   // 检查是否过了立春
   const lichun = LICHUN_DATES[year];
   if (lichun) {
-    // 如果有精确的立春日期
-    if (month < lichun.month || (month === lichun.month && day < lichun.day)) {
+    // 如果有精确的立春日期，考虑时辰
+    if (month < lichun.month ||
+      (month === lichun.month && day < lichun.day) ||
+      (month === lichun.month && day === lichun.day && hour < lichun.hour)) {
       actualYear = year - 1;
     }
   } else {
-    // 简化处理：立春通常在2月4日左右
-    if (month === 1 || (month === 2 && day < 4)) {
+    // 对于没有精确数据的年份，使用简化处理
+    // 立春通常在2月3日-5日之间，大多数在2月4日早上6点左右
+    if (month === 1 || (month === 2 && day < 4) || (month === 2 && day === 4 && hour < 6)) {
       actualYear = year - 1;
     }
   }
@@ -354,25 +400,107 @@ const WUHU_DUN = {
   '癸': ['甲寅', '乙卯', '丙辰', '丁巳', '戊午', '己未', '庚申', '辛酉', '壬戌', '癸亥', '甲子', '乙丑']
 };
 
-function getMonthGanZhi(year, month, day) {
-  // 判断是否过节气
-  const jieqi = JIEQI_DATES[month];
-  let actualMonth = month;
-  let actualYear = year;
+function getMonthGanZhi(year, month, day, hour = 12) {
+  // 确定农历月份
+  let lunarMonth;
+  let yearForGan = year;
 
-  // 如果还没到节气，使用上个月
-  if (day < jieqi.day) {
-    actualMonth = month === 1 ? 12 : month - 1;
-    if (month === 1) {
-      actualYear = year - 1; // 跨年处理
+  // 根据节气确定农历月份
+  if (month === 1) {
+    if (day < 6) {
+      // 小寒前，属于上年子月
+      lunarMonth = 10; // 子月在数组中的索引
+      yearForGan = year - 1;
+    } else {
+      // 小寒后，丑月
+      lunarMonth = 11; // 丑月在数组中的索引
+      yearForGan = year - 1; // 立春前仍用上年年干
     }
-  }
+  } else if (month === 2) {
+    // 检查是否过了立春
+    const lichun = LICHUN_DATES[year];
+    let isAfterLichun = false;
 
-  // 直接计算年干，避免递归调用
-  let yearForGan = actualYear;
-  // 如果是1月或2月4日前，年干用上一年
-  if (actualMonth === 1 || (actualMonth === 2 && day < 4)) {
-    yearForGan = actualYear - 1;
+    if (lichun) {
+      // 有精确立春时间
+      if (day > lichun.day || (day === lichun.day && hour >= lichun.hour)) {
+        isAfterLichun = true;
+      }
+    } else {
+      // 简化处理：2月4日早上6点
+      if (day > 4 || (day === 4 && hour >= 6)) {
+        isAfterLichun = true;
+      }
+    }
+
+    if (isAfterLichun) {
+      // 立春后，寅月
+      lunarMonth = 0; // 寅月在数组中的索引
+    } else {
+      // 立春前，丑月
+      lunarMonth = 11; // 丑月在数组中的索引
+      yearForGan = year - 1;
+    }
+  } else if (month === 3) {
+    if (day < 6) {
+      lunarMonth = 0; // 寅月
+    } else {
+      lunarMonth = 1; // 卯月
+    }
+  } else if (month === 4) {
+    if (day < 5) {
+      lunarMonth = 1; // 卯月
+    } else {
+      lunarMonth = 2; // 辰月
+    }
+  } else if (month === 5) {
+    if (day < 5) {
+      lunarMonth = 2; // 辰月
+    } else {
+      lunarMonth = 3; // 巳月
+    }
+  } else if (month === 6) {
+    if (day < 6) {
+      lunarMonth = 3; // 巳月
+    } else {
+      lunarMonth = 4; // 午月
+    }
+  } else if (month === 7) {
+    if (day < 7) {
+      lunarMonth = 4; // 午月
+    } else {
+      lunarMonth = 5; // 未月
+    }
+  } else if (month === 8) {
+    if (day < 8) {
+      lunarMonth = 5; // 未月
+    } else {
+      lunarMonth = 6; // 申月
+    }
+  } else if (month === 9) {
+    if (day < 8) {
+      lunarMonth = 6; // 申月
+    } else {
+      lunarMonth = 7; // 酉月
+    }
+  } else if (month === 10) {
+    if (day < 8) {
+      lunarMonth = 7; // 酉月
+    } else {
+      lunarMonth = 8; // 戌月
+    }
+  } else if (month === 11) {
+    if (day < 8) {
+      lunarMonth = 8; // 戌月
+    } else {
+      lunarMonth = 9; // 亥月
+    }
+  } else if (month === 12) {
+    if (day < 7) {
+      lunarMonth = 9; // 亥月
+    } else {
+      lunarMonth = 10; // 子月
+    }
   }
 
   // 计算年干
@@ -388,33 +516,7 @@ function getMonthGanZhi(year, month, day) {
     return '甲寅'; // 默认值
   }
 
-  // 重新理解月份对应关系：
-  // 10月26日在寒露(10月8日)之后，立冬(11月8日)之前，应该是戌月
-  // 所以10月对应戌月=8，不是亥月
-
-  const monthMapping = {
-    1: 11,  // 1月小寒后，立春前 = 丑月  
-    2: 0,   // 2月立春后，惊蛰前 = 寅月
-    3: 1,   // 3月惊蛰后，清明前 = 卯月
-    4: 2,   // 4月清明后，立夏前 = 辰月
-    5: 3,   // 5月立夏后，芒种前 = 巳月
-    6: 4,   // 6月芒种后，小暑前 = 午月
-    7: 5,   // 7月小暑后，立秋前 = 未月
-    8: 6,   // 8月立秋后，白露前 = 申月
-    9: 7,   // 9月白露后，寒露前 = 酉月
-    10: 8,  // 10月寒露后，立冬前 = 戌月
-    11: 9,  // 11月立冬后，大雪前 = 亥月
-    12: 10  // 12月大雪后，小寒前 = 子月
-  };
-
-  let lunarMonthIndex = monthMapping[actualMonth];
-
-  // 根据具体节气日期调整
-  if (actualMonth === 1 && day >= 4) {
-    lunarMonthIndex = 0; // 立春后为寅月
-  }
-
-  return monthGanZhiArray[lunarMonthIndex];
+  return monthGanZhiArray[lunarMonth];
 }
 
 // 计算日柱
@@ -439,8 +541,9 @@ function getDayGanZhi(year, month, day, hour) {
   const diffDays = Math.floor((targetDate - baseDate) / (1000 * 60 * 60 * 24));
 
   // 2014年6月22日是甲子日，甲=0，子=0
-  const ganIndex = (diffDays + 0 + 60 * 1000) % 10; // 加大数避免负数
-  const zhiIndex = (diffDays + 0 + 12 * 1000) % 12;
+  // 正确处理负数的模运算
+  const ganIndex = ((diffDays % 10) + 10) % 10;
+  const zhiIndex = ((diffDays % 12) + 12) % 12;
 
   return TIANGAN[ganIndex] + DIZHI[zhiIndex];
 }
@@ -820,8 +923,8 @@ export function calculateBaZi(year, month, day, hour, minute = 0, gender = null)
       hourGanZhi = accurateData.hour;
     } else {
       // 使用计算方法
-      yearGanZhi = getYearGanZhi(year, month, day);
-      monthGanZhi = getMonthGanZhi(year, month, day);
+      yearGanZhi = getYearGanZhi(year, month, day, hour);
+      monthGanZhi = getMonthGanZhi(year, month, day, hour);
       dayGanZhi = getDayGanZhi(year, month, day, hour);
       hourGanZhi = getHourGanZhi(dayGanZhi[0], hour);
     }

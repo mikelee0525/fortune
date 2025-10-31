@@ -31,23 +31,7 @@ function getGanZhiWuXing(ganZhi) {
   return wuXingMap[ganZhi] || '土';
 }
 
-// 将24小时制转换为12时辰制的代表小时
-function getShichenHour(hour) {
-  const hourNum = parseInt(hour);
-  if (hourNum >= 23 || hourNum < 1) return '23'; // 子时
-  if (hourNum >= 1 && hourNum < 3) return '1';   // 丑时
-  if (hourNum >= 3 && hourNum < 5) return '3';   // 寅时
-  if (hourNum >= 5 && hourNum < 7) return '5';   // 卯时
-  if (hourNum >= 7 && hourNum < 9) return '7';   // 辰时
-  if (hourNum >= 9 && hourNum < 11) return '9';  // 巳时
-  if (hourNum >= 11 && hourNum < 13) return '11'; // 午时
-  if (hourNum >= 13 && hourNum < 15) return '13'; // 未时
-  if (hourNum >= 15 && hourNum < 17) return '15'; // 申时
-  if (hourNum >= 17 && hourNum < 19) return '17'; // 酉时
-  if (hourNum >= 19 && hourNum < 21) return '19'; // 戌时
-  if (hourNum >= 21 && hourNum < 23) return '21'; // 亥时
-  return '23'; // 默认子时
-}
+
 
 // 生成复制内容的函数
 function generateCopyContent(paipan) {
@@ -141,7 +125,8 @@ export default function PaipanPage() {
     year: '2017',
     month: '10',
     day: '26',
-    hour: '23'  // 缺省设为子时
+    hour: '23',  // 缺省设为23时
+    minute: '0'  // 缺省设为0分
   });
 
   const [isGenerating, setIsGenerating] = useState(false);
@@ -153,7 +138,8 @@ export default function PaipanPage() {
     year: '',
     month: '',
     day: '',
-    hour: ''
+    hour: '',
+    minute: '0'
   });
 
   // 从 localStorage 加载数据
@@ -309,7 +295,7 @@ export default function PaipanPage() {
       return;
     }
 
-    const birthDate = `${birthInfo.year}-${birthInfo.month.padStart(2, '0')}-${birthInfo.day.padStart(2, '0')} ${birthInfo.hour.padStart(2, '0')}:00`;
+    const birthDate = `${birthInfo.year}-${birthInfo.month.padStart(2, '0')}-${birthInfo.day.padStart(2, '0')} ${birthInfo.hour.padStart(2, '0')}:${(birthInfo.minute || '0').padStart(2, '0')}`;
 
     setIsGenerating(true);
 
@@ -348,7 +334,7 @@ export default function PaipanPage() {
         parseInt(birthInfo.month),
         parseInt(birthInfo.day),
         parseInt(birthInfo.hour),
-        0,
+        parseInt(birthInfo.minute || '0'),
         gender
       );
 
@@ -379,7 +365,7 @@ export default function PaipanPage() {
       setPersonName('');
       setGender('男');
       setCalendarType('公历');
-      setBirthInfo({ year: '2017', month: '10', day: '26', hour: '1', minute: '1' });
+      setBirthInfo({ year: '2017', month: '10', day: '26', hour: '23', minute: '0' });
       setLunarDate(null);
       setSolarDate(null);
       setShowCreateModal(false);
@@ -391,7 +377,8 @@ export default function PaipanPage() {
         year: birthInfo.year,
         month: birthInfo.month,
         day: birthInfo.day,
-        hour: getShichenHour(birthInfo.hour)
+        hour: birthInfo.hour,
+        minute: birthInfo.minute || '0'
       });
       setShowDetailModal(true);
 
@@ -407,7 +394,7 @@ export default function PaipanPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link href="/" className="flex items-center">
               <SimpleLogo />
@@ -431,8 +418,8 @@ export default function PaipanPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-8">
+      <main className="max-w-7xl mx-auto px-1 sm:px-4 lg:px-8 py-2 sm:py-4 lg:py-8">
+        <div className="flex items-center justify-between mb-2 sm:mb-4 lg:mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             排盘管理
           </h1>
@@ -445,7 +432,7 @@ export default function PaipanPage() {
         </div>
 
         {/* 排盘列表 */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-4 lg:gap-6">
           {paipanList.map((paipan) => (
             <div
               key={paipan.id}
@@ -679,7 +666,8 @@ export default function PaipanPage() {
                       year: datePart?.[0] || '',
                       month: datePart?.[1] ? parseInt(datePart[1]).toString() : '',
                       day: datePart?.[2] ? parseInt(datePart[2]).toString() : '',
-                      hour: getShichenHour(timePart?.[0] || '1')
+                      hour: timePart?.[0] || '0',
+                      minute: timePart?.[1] || '0'
                     });
                     setShowDetailModal(true);
                   }}
@@ -714,7 +702,7 @@ export default function PaipanPage() {
       {/* 创建模态框 */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-8 max-w-lg w-full mx-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl p-2 sm:p-4 lg:p-8 max-w-lg w-full mx-1 sm:mx-4">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
               新建排盘
             </h2>
@@ -787,7 +775,7 @@ export default function PaipanPage() {
                     onChange={(e) => setBirthInfo({ ...birthInfo, year: e.target.value })}
                     className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    {Array.from({ length: 101 }, (_, i) => 2024 - i).map(year => (
+                    {Array.from({ length: 112 }, (_, i) => 2035 - i).map(year => (
                       <option key={year} value={year}>{year}年</option>
                     ))}
                   </select>
@@ -816,27 +804,31 @@ export default function PaipanPage() {
                 </div>
               </div>
 
-              {/* 时分 */}
-              <div>
-                <select
-                  value={birthInfo.hour}
-                  onChange={(e) => setBirthInfo({ ...birthInfo, hour: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">请选择时辰</option>
-                  <option value="23">子时 (23-01点)</option>
-                  <option value="1">丑时 (01-03点)</option>
-                  <option value="3">寅时 (03-05点)</option>
-                  <option value="5">卯时 (05-07点)</option>
-                  <option value="7">辰时 (07-09点)</option>
-                  <option value="9">巳时 (09-11点)</option>
-                  <option value="11">午时 (11-13点)</option>
-                  <option value="13">未时 (13-15点)</option>
-                  <option value="15">申时 (15-17点)</option>
-                  <option value="17">酉时 (17-19点)</option>
-                  <option value="19">戌时 (19-21点)</option>
-                  <option value="21">亥时 (21-23点)</option>
-                </select>
+              {/* 时间 */}
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <select
+                    value={birthInfo.hour}
+                    onChange={(e) => setBirthInfo({ ...birthInfo, hour: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="">时</option>
+                    {Array.from({ length: 24 }, (_, i) => (
+                      <option key={i} value={i}>{i.toString().padStart(2, '0')}时</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    value={birthInfo.minute || '0'}
+                    onChange={(e) => setBirthInfo({ ...birthInfo, minute: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    {Array.from({ length: 60 }, (_, i) => (
+                      <option key={i} value={i}>{i.toString().padStart(2, '0')}分</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               {/* 农历显示 */}
@@ -885,7 +877,7 @@ export default function PaipanPage() {
                     setPersonName('');
                     setGender('男');
                     setCalendarType('公历');
-                    setBirthInfo({ year: '2017', month: '10', day: '26', hour: '1', minute: '1' });
+                    setBirthInfo({ year: '2017', month: '10', day: '26', hour: '23', minute: '0' });
                     setLunarDate(null);
                     setSolarDate(null);
                   }
@@ -902,10 +894,10 @@ export default function PaipanPage() {
 
       {/* 详情模态框 */}
       {showDetailModal && selectedPaipan && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-1 sm:p-4">
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             {/* 头部 */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-2 sm:p-4 lg:p-6 border-b border-gray-200 dark:border-gray-700">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   {selectedPaipan.name}
@@ -942,7 +934,7 @@ export default function PaipanPage() {
             </div>
 
             {/* 内容区域 */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto p-2 sm:p-4 lg:p-6">
               {selectedPaipan.baziData ? (
                 <div className="space-y-6">
                   {/* 可编辑的生日信息 */}
@@ -961,7 +953,7 @@ export default function PaipanPage() {
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-sm"
                         >
                           <option value="">请选择年份</option>
-                          {Array.from({ length: 100 }, (_, i) => 2024 - i).map(year => (
+                          {Array.from({ length: 111 }, (_, i) => 2035 - i).map(year => (
                             <option key={year} value={year}>{year}年</option>
                           ))}
                         </select>
@@ -996,29 +988,36 @@ export default function PaipanPage() {
                           ))}
                         </select>
                       </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                          时辰
-                        </label>
-                        <select
-                          value={editableBirthInfo.hour}
-                          onChange={(e) => setEditableBirthInfo(prev => ({ ...prev, hour: e.target.value }))}
-                          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-sm"
-                        >
-                          <option value="">请选择时辰</option>
-                          <option value="23">子时 (23-01点)</option>
-                          <option value="1">丑时 (01-03点)</option>
-                          <option value="3">寅时 (03-05点)</option>
-                          <option value="5">卯时 (05-07点)</option>
-                          <option value="7">辰时 (07-09点)</option>
-                          <option value="9">巳时 (09-11点)</option>
-                          <option value="11">午时 (11-13点)</option>
-                          <option value="13">未时 (13-15点)</option>
-                          <option value="15">申时 (15-17点)</option>
-                          <option value="17">酉时 (17-19点)</option>
-                          <option value="19">戌时 (19-21点)</option>
-                          <option value="21">亥时 (21-23点)</option>
-                        </select>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            时
+                          </label>
+                          <select
+                            value={editableBirthInfo.hour}
+                            onChange={(e) => setEditableBirthInfo(prev => ({ ...prev, hour: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-sm"
+                          >
+                            <option value="">时</option>
+                            {Array.from({ length: 24 }, (_, i) => (
+                              <option key={i} value={i}>{i.toString().padStart(2, '0')}时</option>
+                            ))}
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            分
+                          </label>
+                          <select
+                            value={editableBirthInfo.minute || '0'}
+                            onChange={(e) => setEditableBirthInfo(prev => ({ ...prev, minute: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-sm"
+                          >
+                            {Array.from({ length: 60 }, (_, i) => (
+                              <option key={i} value={i}>{i.toString().padStart(2, '0')}分</option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                     </div>
 
@@ -1045,7 +1044,7 @@ export default function PaipanPage() {
             </div>
 
             {/* 底部按钮 */}
-            <div className="flex gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex gap-2 sm:gap-3 p-2 sm:p-4 lg:p-6 border-t border-gray-200 dark:border-gray-700">
               <button
                 onClick={async () => {
                   // 重新提交：使用修改后的生日信息重新计算并更新排盘
@@ -1056,6 +1055,7 @@ export default function PaipanPage() {
                       const monthVal = parseInt(editableBirthInfo.month);
                       const dayVal = parseInt(editableBirthInfo.day);
                       const hourVal = parseInt(editableBirthInfo.hour);
+                      const minuteVal = parseInt(editableBirthInfo.minute || '0');
                       
                       console.log('重新计算八字，输入参数:', {
                         year: yearVal,
@@ -1094,7 +1094,7 @@ export default function PaipanPage() {
                         monthVal,
                         dayVal,
                         hourVal,
-                        0,
+                        minuteVal,
                         selectedPaipan.personInfo?.gender
                       );
 
@@ -1114,7 +1114,7 @@ export default function PaipanPage() {
                         console.error('农历转换失败:', error);
                       }
                       
-                      const newBirthDate = `${editableBirthInfo.year}-${String(editableBirthInfo.month).padStart(2, '0')}-${String(editableBirthInfo.day).padStart(2, '0')} ${String(editableBirthInfo.hour).padStart(2, '0')}:00`;
+                      const newBirthDate = `${editableBirthInfo.year}-${String(editableBirthInfo.month).padStart(2, '0')}-${String(editableBirthInfo.day).padStart(2, '0')} ${String(editableBirthInfo.hour).padStart(2, '0')}:${String(editableBirthInfo.minute || '0').padStart(2, '0')}`;
                       
                       // 更新排盘数据
                       const updatedPaipan = {
